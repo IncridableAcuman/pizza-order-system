@@ -1,9 +1,15 @@
 import { Lock, Mail, User } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 const Register = () => {
+  const navigate=useNavigate();
   const mailData=[
     {icon:<User size={20}/>,holder:"Username",type:"text"},
     {icon:<Mail size={20}/>,holder:"Email",type:"email"},
     {icon:<Lock size={20}/>,holder:"Password",type:"password"},
+  ]
+  const oauthData=[
+    {name:"Google",icon:"https://www.google.com/favicon.ico"},
+    {name:"Github",icon:"https://www.github.com/favicon.ico"},
   ]
   return (
     <>
@@ -26,13 +32,22 @@ const Register = () => {
              rounded shadow cursor-pointer  hover:bg-green-800 transition duration-300'>Sign Up Now</button>           
           </form>
           <p className='text-center pt-4'>or</p>
-          <div className="">
-            <a href="#" className=''>Google</a>
-            <a href="#">Github</a>
+          {
+            oauthData.map((item,index)=>(
+              <div className="pb-2" key={index}>
+            <button className='flex items-center gap-3 bg-white w-full justify-center p-2.5
+             cursor-pointer rounded shadow hover:bg-slate-50 transition duration-300'>
+              <img src={item.icon} alt={item.name} />
+              {item.name}
+            </button>
           </div>
+            ))
+          }
+          <p className="text-sm">Already have an account? 
+            <span className="cursor-pointer hover:text-green-700" onClick={()=>navigate("/login")}>{" "}Sign In</span></p>    
         </div>
-        <div className="">
-          <img src="./hero-pizza.png" alt="hero" className='w-[800px]' />
+        <div className="w-full">
+          <img src="./pizza.png" alt="hero" className=' hidden md:block' />
         </div>
       </div>
       </div>

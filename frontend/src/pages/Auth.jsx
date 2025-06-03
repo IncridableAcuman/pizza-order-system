@@ -1,8 +1,11 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
 
 const Auth = () => {
   return (
-    <div>Auth</div>
+    <>
+    <Navbar/>
+    </>
   )
 }
 
