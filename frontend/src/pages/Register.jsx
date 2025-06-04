@@ -27,7 +27,8 @@ const Register = () => {
             </div>
               ))
             }
-            <p className='cursor-pointer text-sm hover:text-green-900'>Forgot Password</p>
+            <p className='cursor-pointer text-sm hover:text-green-900'
+             onClick={()=>navigate("/forgot-password")}>Forgot Password</p>
             <button className='bg-green-600 text-white w-full mx-auto p-2.5
              rounded shadow cursor-pointer  hover:bg-green-800 transition duration-300'>Sign Up Now</button>           
           </form>
