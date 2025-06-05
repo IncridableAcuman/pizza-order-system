@@ -20,7 +20,7 @@ Bu loyiha Java (Spring Boot), MongoDB, WebSocket, va Vite (React) yordamida quri
 - Axios
 - React Router Dom
 - Context API
-- WebSocket Client (native WebSocket API yoki `socket.io-client`)
+- WebSocket Client (`socket.io-client`)
 
 ### Boshqa:
 - Docker 
@@ -30,3 +30,18 @@ Bu loyiha Java (Spring Boot), MongoDB, WebSocket, va Vite (React) yordamida quri
 ## 📐 Loyiha Tuzilishi
 
 ### Backend (`/backend`):
+- configs
+- controllers
+- dto
+- enums
+- exceptions
+- models
+- repository
+- services
+- BackendApplication.java
+### Frontend (`/frontend`):
+- api
+- components
+- contexts
+- pages
+- App.jsx

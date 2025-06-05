@@ -48,7 +48,7 @@ const Login = () => {
             <span className="cursor-pointer hover:text-green-700" onClick={()=>navigate("/register")}>{" "}Sign Up</span></p>    
         </div>
         <div className="">
-          <img src="./hero-pizza.png" alt="hero" className='w-[800px] hidden md:block' />
+          <img src="./pizza.png" alt="hero" className='w-[800px] hidden md:block' />
         </div>
       </div>
       </div>

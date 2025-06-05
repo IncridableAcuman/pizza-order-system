@@ -1,13 +1,16 @@
 import { ShoppingCart, UserCircle } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 const MainNavbar = () => {
     const data=[
-        {name:"Home",path:"#"},
-        {name:"My Order",path:"#"},
-        {name:"Pizzas",path:"#"},
+        {name:"Menu",path:"/menu"},
+        {name:"Offers",path:"/orders"},
+        {name:"My Orders",path:"/offers"},
     ]
+    const navigate=useNavigate();
   return (
     <div className='fixed top-0 left-0 w-full flex items-center justify-between py-4 px-8 bg-gray-50 border-b'>
-        <img src="./logo.png" alt="logo" />
+        <img src="./logo.png" alt="logo"
+         className='cursor-pointer' onClick={()=>navigate("/")} />
         
         <div className="flex items-center gap-3">
             {
