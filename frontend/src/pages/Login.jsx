@@ -36,7 +36,7 @@ const Login = () => {
           {
             oauthData.map((item,index)=>(
               <div className="pb-2" key={index}>
-            <button className='flex items-center gap-3 bg-white w-full justify-center p-2.5
+            <button className='flex items-center gap-3 bg-gray-100 w-full justify-center p-2.5
              cursor-pointer rounded shadow hover:bg-slate-50 transition duration-300'>
               <img src={item.icon} alt={item.name} />
               {item.name}

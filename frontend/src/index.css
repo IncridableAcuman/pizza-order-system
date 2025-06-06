@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.paddinging{
+    padding: 30px 10%;
+}

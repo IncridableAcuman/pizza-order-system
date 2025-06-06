@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 const MainNavbar = () => {
     const data=[
         {name:"Menu",path:"/menu"},
-        {name:"Offers",path:"/orders"},
-        {name:"My Orders",path:"/offers"},
+        {name:"Offers",path:"/offers"},
+        {name:"My Orders",path:"/orders"},
     ]
     const navigate=useNavigate();
   return (
@@ -20,7 +20,10 @@ const MainNavbar = () => {
                 ))
             }
             <div className="flex items-center gap-3">
-                <ShoppingCart className='text-green-950 cursor-pointer relative'/>
+                <div className="flex items-center bg-green-600 text-white px-1 rounded">
+                    <p>0</p>
+                    <ShoppingCart size={20} className='cursor-pointer'/>
+                </div>
                 <UserCircle/>
             </div>
         </div>
