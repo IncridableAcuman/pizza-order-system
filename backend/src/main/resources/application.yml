@@ -17,6 +17,15 @@ spring:
                 format_sql: true
                 dialect: org.hibernate.dialect.PostgreSQLDialect
 
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        username: abdusharipovizzat03@gmail.com
+        password: vzdq hzil ujoq bzrb
+        properties:
+                mail.smtp.auth: true
+                mail.smtp.starttls.enable: true
+
 jwt:
     secret: "qwertyuiopasdfghjklxcvbnm1234567890"
     access-time: 900000

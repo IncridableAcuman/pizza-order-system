@@ -51,7 +51,7 @@ public class TokenService {
     public boolean validateToken(String refreshToken){
         try {
             Claims claims=Jwts.parserBuilder().build().parseClaimsJws(refreshToken).getBody();
-            return true;
+            return claims.getExpiration().after(new Date());
         } catch (RuntimeException e) {
             return false;
         }

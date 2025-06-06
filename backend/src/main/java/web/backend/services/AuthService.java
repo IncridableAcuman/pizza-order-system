@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final UserService userService;
     private final TokenService tokenService;
+    private final MailService mailService;
 
 
 }
