@@ -22,7 +22,7 @@ public class Token implements Serializable {
 
     private String refreshToken;
 
-    @OneToMany
+    @OneToOne
     private User user;
 
     private Date expiryDate;

@@ -17,13 +17,13 @@ import java.util.Date;
 public class TokenService {
     private final TokenRepository tokenRepository;
     @Value("${jwt.secret}")
-    private  final String secret;
+    private String secret;
 
     @Value("${jwt.access-time}")
-    private final long accessTime;
+    private long accessTime;
 
-    @Value("${jwt.refresh-time")
-    private final long refreshTime;
+    @Value("${jwt.refresh-time}")
+    private long refreshTime;
 
     public Key getSigningKey(){
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
@@ -50,7 +50,7 @@ public class TokenService {
 
     public boolean validateToken(String refreshToken){
         try {
-            Claims claims=Jwts.parserBuilder().build().parseClaimsJws(refreshToken).getBody();
+            Claims claims=Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(refreshToken).getBody();
             return claims.getExpiration().after(new Date());
         } catch (RuntimeException e) {
             return false;

@@ -3,9 +3,9 @@ server:
 
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:3306/postgres
-        username: postgres
-        password: 1234
+        url: ${BASE_URL}
+        username: ${BASE_USERNAME}
+        password: ${BASE_PASS}
         driver-class-name: org.postgresql.Driver
 
     jpa:
@@ -15,18 +15,17 @@ spring:
         properties:
             hibernate:
                 format_sql: true
-                dialect: org.hibernate.dialect.PostgreSQLDialect
 
     mail:
-        host: smtp.gmail.com
-        port: 587
-        username: abdusharipovizzat03@gmail.com
-        password: vzdq hzil ujoq bzrb
+        host: ${MAIL_HOST}
+        port: ${MAIL_PORT}
+        username: ${MAIL_USER}
+        password: ${MAIL_PASS}
         properties:
                 mail.smtp.auth: true
                 mail.smtp.starttls.enable: true
 
 jwt:
-    secret: "qwertyuiopasdfghjklxcvbnm1234567890"
-    access-time: 900000
-    refresh-time: 604800000
+    secret: ${JWT_SECRET}
+    access-time: ${JWT_ACCESS_TIME}
+    refresh-time: ${JWT_REFRESH_TIME}

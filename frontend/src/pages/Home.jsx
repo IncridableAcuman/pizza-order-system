@@ -36,7 +36,12 @@ const Home = () => {
               <div className="flex items-center justify-center gap-3">
                 <p>{item.size}</p>
                 <p> {item.price}$</p>
-                <PlusCircle/>
+                <a href="#" className='flex items-center gap-2
+                 bg-green-500 text-white p-1.5 rounded-2xl
+                  shadow border-2'>
+                  Add
+                  <PlusCircle/>
+                </a>        
               </div>
              </div>
             </div>
