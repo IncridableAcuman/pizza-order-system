@@ -19,7 +19,7 @@ public class UserService {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(Role.admin);
+        user.setRole(Role.ADMIN);
         return userRepository.save(user);
     }
     public User findUserByEmail(String email){
