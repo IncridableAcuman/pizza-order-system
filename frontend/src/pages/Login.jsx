@@ -1,16 +1,32 @@
 import { Lock, Mail } from "lucide-react"
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../api/axiosInstance";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
   const navigate=useNavigate();
-    const mailData=[
-    {icon:<Mail size={20}/>,holder:"Email",type:"email"},
-    {icon:<Lock size={20}/>,holder:"Password",type:"password"},
-  ]
   const oauthData=[
     {name:"Google",icon:"https://www.google.com/favicon.ico"},
     {name:"Github",icon:"https://www.github.com/favicon.ico"},
   ]
+    const handleSubmit=async (e)=>{
+    e.preventDefault();
+    try {
+      const {data}=await axiosInstance.post("/auth/login",{email,password});
+      if(data){
+        localStorage.setItem("accessToken",data?.accessToken);
+        navigate("/");
+        toast.success(data?.message || "Successfully");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.message || error?.response?.message || "Something wen wrong!");
+      localStorage.removeItem("accessToken");
+    }
+  }
   return (
     <>
      <div className="w-full min-h-screen flex items-center justify-center bg-gray-100">
@@ -18,15 +34,18 @@ const Login = () => {
         <div className="flex flex-col md:flex-row items-center  gap-4 sm:gap-6 md:gap-8 lg:gap-10">
         <div className="w-full">
           <h1 className='text-2xl font-semibold pb-8'>Welcome Back!</h1>
-          <form className='space-y-4'>
-            {
-              mailData.map((item,index)=>(
-              <div className="flex items-center gap-3 border border-gray-600 p-3 rounded" key={index}>
-              {item.icon}
-              <input type={item.type} placeholder={item.holder} className='outline-none w-full' />
+          <form className='space-y-4'
+           onSubmit={handleSubmit}>
+              <div className="flex items-center gap-3 border border-gray-600 p-3 rounded">
+                <Mail size={20} className="text-gray-600" />
+              <input type="email" placeholder="Email" className='outline-none w-full'
+               value={email} onChange={(e)=>setEmail(e.target.value)} />
             </div>
-              ))
-            }
+            <div className="flex items-center gap-3 border border-gray-600 p-3 rounded">
+              <Lock size={20} className="text-gray-600" />
+              <input type="password" placeholder="Password" className='outline-none w-full' 
+              value={password} onChange={(e)=>setPassword(e.target.value)}/>
+            </div>
             <p className='cursor-pointer text-sm hover:text-green-900'
              onClick={()=>navigate("/forgot-password")}>Forgot Password</p>
             <button className='bg-green-600 text-white w-full mx-auto p-2.5
