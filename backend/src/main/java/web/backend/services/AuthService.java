@@ -1,6 +1,7 @@
 package web.backend.services;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import web.backend.dto.AuthResponse;
@@ -16,11 +17,20 @@ public class AuthService {
     private final CookieService cookieService;
 
 //    user register
+    @Transactional
     public AuthResponse register(RegisterRequest request, HttpServletResponse response){
-        try {
+
             User user=userService.createUser(request);
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
-        }
+            String accessToken=tokenService.generateAccessToken(user.getEmail());
+            String refreshToken=tokenService.generateRefreshToken(user.getEmail());
+            tokenService.createToken(user,refreshToken);
+            cookieService.addTokenToCookie(response,refreshToken);
+            mailService.sendMail(user.getEmail(),"Hi There","Your account join to us");
+            return new AuthResponse(user.getId(),
+                    user.getUsername(),
+                    user.getEmail(),
+                    user.getRole(),
+                    accessToken,
+                    refreshToken);
     }
 }

@@ -6,6 +6,8 @@ import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import web.backend.models.Token;
+import web.backend.models.User;
 import web.backend.repository.TokenRepository;
 
 import java.nio.charset.StandardCharsets;
@@ -60,9 +62,19 @@ public class TokenService {
     public String extractEmail(String refreshToken){
         return Jwts
                 .parserBuilder()
+                .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(refreshToken)
                 .getBody()
                 .getSubject();
+    }
+
+    public Token createToken(User user,String refreshToken){
+        Token token=new Token();
+        token.setUser(user);
+        token.setRefreshToken(refreshToken);
+        token.setExpiryDate(new Date(System.currentTimeMillis()+refreshTime));
+        tokenRepository.deleteByUser(user);
+        return tokenRepository.save(token);
     }
 }
