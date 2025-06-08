@@ -74,7 +74,10 @@ public class TokenService {
         token.setUser(user);
         token.setRefreshToken(refreshToken);
         token.setExpiryDate(new Date(System.currentTimeMillis()+refreshTime));
-        tokenRepository.deleteByUser(user);
         return tokenRepository.save(token);
+    }
+    public Token getOrCreateRefreshToken(User user,String refreshToken){
+        Token token=tokenRepository.findByUser(user).orElseGet(()->createToken(user,refreshToken));
+        return token;
     }
 }

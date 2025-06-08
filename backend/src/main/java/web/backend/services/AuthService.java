@@ -5,7 +5,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import web.backend.dto.AuthResponse;
+import web.backend.dto.LoginRequest;
 import web.backend.dto.RegisterRequest;
+import web.backend.models.Token;
 import web.backend.models.User;
 
 @Service
@@ -32,5 +34,19 @@ public class AuthService {
                     user.getRole(),
                     accessToken,
                     refreshToken);
+    }
+//    login user
+    public AuthResponse login(LoginRequest request,HttpServletResponse response){
+        User user=userService.findUserByEmail(request.getEmail());
+        String accessToken=tokenService.generateAccessToken(user.getEmail());
+        String refreshToken=tokenService.generateRefreshToken(user.getEmail());
+        Token token=tokenService.getOrCreateRefreshToken(user,refreshToken);
+        cookieService.addTokenToCookie(response,token.getRefreshToken());
+        return new AuthResponse(user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getRole(),
+                accessToken,
+                refreshToken);
     }
 }

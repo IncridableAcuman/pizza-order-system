@@ -12,14 +12,18 @@ axiosInstance.interceptors.request.use(
         if(token){
             config.headers['Authorization']=`Bearer ${token}`;
         }
-    }
+        return config;
+    },
+    (error)=>Promise.reject(error)
 );
 
 axiosInstance.interceptors.response.use(
     config=>config,
     async error=>{
         const originalRequest=error.config;
-        try {
+       if(error?.response?.status==401 && !originalRequest._isRetry){
+        originalRequest._isRetry=true;
+         try {
             const {data}=await axiosInstance.get("/auth/refresh");
             localStorage.setItem("accessToken",data?.accessToken);
         } catch (error) {
@@ -27,7 +31,9 @@ axiosInstance.interceptors.response.use(
             toast.error(error?.message || error?.response?.message || "Something went wrong!");
             window.location.href="/login";
             localStorage.removeItem("accessToken");
+            return Promise.reject(error);
         }
+       }
     }
 );
 
