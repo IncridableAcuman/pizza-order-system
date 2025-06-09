@@ -69,6 +69,17 @@ public class TokenService {
                 .getSubject();
     }
 
+    public void deleteTokenFromDB(User user){
+        tokenRepository.deleteByUser(user);
+    }
+    public Token findTokenByUser(User user){
+        return tokenRepository.findByUser(user).orElseThrow(()->new RuntimeException("Invalid refresh  token"));
+    }
+    public void deleteToken(String refreshToken){
+        Token token=tokenRepository.findByRefreshToken(refreshToken).orElseThrow(()->new RuntimeException("Invalid token"));
+       tokenRepository.delete(token);
+    }
+
     public Token createToken(User user,String refreshToken){
         Token token=new Token();
         token.setUser(user);
@@ -80,4 +91,5 @@ public class TokenService {
         Token token=tokenRepository.findByUser(user).orElseGet(()->createToken(user,refreshToken));
         return token;
     }
+
 }
