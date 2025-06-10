@@ -6,11 +6,10 @@ import lombok.Data;
 
 @Data
 public class ResetPasswordRequest {
-    @NotBlank(message = "Password is required!")
-    @NotNull
-    private String password;
 
-    @NotBlank(message = "Token is required!")
-    @NotNull
+    @NotBlank
     private String token;
+
+    @NotBlank
+    private String password;
 }
