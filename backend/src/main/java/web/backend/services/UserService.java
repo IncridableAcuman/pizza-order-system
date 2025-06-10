@@ -24,7 +24,7 @@ public class UserService {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(Role.ADMIN);
+        user.setRole(Role.CUSTOMER);
         return userRepository.save(user);
     }
     @Transactional
@@ -40,6 +40,10 @@ public class UserService {
     @Transactional
     public User updatePassword(String password){
         User user=new User();
+        user.setPassword(passwordEncoder.encode(password));
+        return userRepository.save(user);
+    }
+    public User updatePassword(User user,String password){
         user.setPassword(passwordEncoder.encode(password));
         return userRepository.save(user);
     }

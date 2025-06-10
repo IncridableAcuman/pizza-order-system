@@ -4,9 +4,7 @@
     import jakarta.transaction.Transactional;
     import lombok.RequiredArgsConstructor;
     import org.springframework.stereotype.Service;
-    import web.backend.dto.AuthResponse;
-    import web.backend.dto.LoginRequest;
-    import web.backend.dto.RegisterRequest;
+    import web.backend.dto.*;
     import web.backend.models.Token;
     import web.backend.models.User;
 
@@ -93,20 +91,24 @@
             tokenService.deleteToken(refreshToken);
             cookieService.clearCookie(response);
         }
-//        forgot password
-//        @Transactional
-//        public String forgotPassword(ForgotPasswordRequest request){
-//            User user=userService.findUserByEmail(request.getEmail());
-//            String token=tokenService.generateAccessToken(user.getEmail());
-//            mailService.sendMail(user.getEmail(),"Reset Password","http://localhost:5173/reset-password?token="+token);
-//            return "Rest password link sent to your email!";
-//        }
-////        reset password
-//        @Transactional
-//        public String resetPassword(String password,String token){
-//            String email=tokenService.extractEmail(token);
-//            userService.findUserByEmail(email);
-//            userService.updatePassword(password);
-//            return "Password updated successfully";
-//        }
+        //forgot password
+        @Transactional
+        public String forgotPassword(ForgotPasswordRequest request){
+            User user=userService.findUserByEmail(request.getEmail());
+            String token=tokenService.generateAccessToken(user.getEmail());
+            mailService.sendMail(user.getEmail(),"Reset Password","http://localhost:5173/reset-password?token="+token);
+            return "Rest password link sent to your email!";
+        }
+//        reset password
+        @Transactional
+        public String resetPassword(ResetPasswordRequest request){
+            boolean userPayload=tokenService.validateToken(request.getToken());
+            if (!userPayload){
+                throw new RuntimeException("Invalid token");
+            }
+            Token token=tokenService.findByRefreshT(request.getToken());
+            User user=token.getUser();
+            userService.updatePassword(user,request.getPassword());
+            return "Password updated successfully";
+        }
     }

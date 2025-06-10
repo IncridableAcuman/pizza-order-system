@@ -5,9 +5,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import web.backend.dto.AuthResponse;
-import web.backend.dto.LoginRequest;
-import web.backend.dto.RegisterRequest;
+import web.backend.dto.*;
 import web.backend.services.AuthService;
 
 @RestController
@@ -39,16 +37,12 @@ public class AuthController {
         authService.logout(refreshToken,response);
         return ResponseEntity.ok("User logged out");
     }
-//    @PostMapping("/forgot-password")
-//    public ResponseEntity<String> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request){
-//        return ResponseEntity.ok(authService.forgotPassword(request));
-//    }
-//    @PutMapping("/reset-password")
-//    public ResponseEntity<String> resetPassword(@Valid String password,@RequestHeader(name = "Authorization",required = false) String authorization){
-//        if (authorization==null || !authorization.startsWith("Bearer ")){
-//            throw new RuntimeException("Invalid token");
-//        }
-//        String refreshToken=authorization.substring(7);
-//        return ResponseEntity.ok(authService.resetPassword(password,refreshToken));
-//    }
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request){
+        return ResponseEntity.ok(authService.forgotPassword(request));
+    }
+    @PutMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@Valid @RequestBody ResetPasswordRequest request){
+        return ResponseEntity.ok(authService.resetPassword(request));
+    }
 }
