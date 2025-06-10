@@ -16,14 +16,12 @@ const Login = () => {
     e.preventDefault();
     try {
       const {data}=await axiosInstance.post("/auth/login",{email,password});
-      if(data){
         localStorage.setItem("accessToken",data?.accessToken);
         navigate("/");
         toast.success(data?.message || "Successfully");
-      }
     } catch (error) {
       console.log(error);
-      toast.error(error?.message || error?.response?.message || "Something wen wrong!");
+      toast.error("Email or passwor wrong!");
       localStorage.removeItem("accessToken");
     }
   }

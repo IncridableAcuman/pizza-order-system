@@ -14,13 +14,13 @@ const ResetPassword = () => {
       toast.error("Password must be equal");
     }
     try {
-      await axiosInstance.put("/auth/reset-password",{password,confirmPassword});
+       await axiosInstance.put("/auth/reset-password",{password,confirmPassword});
         toast.success("Password reseted successfully!");
         navigate("/login");
-
+      
     } catch (error) {
       console.log(error);
-      toast.error(error?.message || error?.response?.message || "Something wen wrong!");
+      toast.error("Password must be equal");
     }
   }
   return (

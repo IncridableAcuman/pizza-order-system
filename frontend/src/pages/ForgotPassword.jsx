@@ -7,13 +7,11 @@ const ForgotPassword = () => {
   const handleSubmit=async (e)=>{
     e.preventDefault();
     try {
-      const {data}=await axiosInstance.post("/auth/forgot-password",{email});
-      if(data){
-        toast.success(data?.message || "Reset password link sent to your email!");
-      }
+      await axiosInstance.post("/auth/forgot-password",{email});
+        toast.success("Reset password link sent to your email!");
     } catch (error) {
       console.log(error);
-      toast.error(error?.message || error?.response?.message || "Something wen wrong!");
+      toast.error(error?.message || error?.response?.message || "Email wrong!");
     }
   }
   return (
