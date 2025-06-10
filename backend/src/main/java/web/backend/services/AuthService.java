@@ -38,6 +38,7 @@
     //    login user
         public AuthResponse login(LoginRequest request,HttpServletResponse response){
             User user=userService.findUserByEmail(request.getEmail());
+            userService.isEqualsPassword(request.getPassword(),user.getPassword());
             String accessToken=tokenService.generateAccessToken(user.getEmail());
             String refreshToken=tokenService.generateRefreshToken(user.getEmail());
             Token token=tokenService.getOrCreateRefreshToken(user,refreshToken);
