@@ -93,4 +93,20 @@
             tokenService.deleteToken(refreshToken);
             cookieService.clearCookie(response);
         }
+//        forgot password
+//        @Transactional
+//        public String forgotPassword(ForgotPasswordRequest request){
+//            User user=userService.findUserByEmail(request.getEmail());
+//            String token=tokenService.generateAccessToken(user.getEmail());
+//            mailService.sendMail(user.getEmail(),"Reset Password","http://localhost:5173/reset-password?token="+token);
+//            return "Rest password link sent to your email!";
+//        }
+////        reset password
+//        @Transactional
+//        public String resetPassword(String password,String token){
+//            String email=tokenService.extractEmail(token);
+//            userService.findUserByEmail(email);
+//            userService.updatePassword(password);
+//            return "Password updated successfully";
+//        }
     }

@@ -35,12 +35,20 @@ public class AuthController {
         return ResponseEntity.ok(authService.refresh(token,response));
     }
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestHeader(name = "Authorization",required = false) String authorization,HttpServletResponse response){
-        if (authorization==null || !authorization.startsWith("Bearer ")){
-            throw new RuntimeException("Invalid token");
-        }
-        String refreshToken=authorization.substring(7);
+    public ResponseEntity<String> logout(@CookieValue(name = "token") String refreshToken,HttpServletResponse response){
         authService.logout(refreshToken,response);
         return ResponseEntity.ok("User logged out");
     }
+//    @PostMapping("/forgot-password")
+//    public ResponseEntity<String> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request){
+//        return ResponseEntity.ok(authService.forgotPassword(request));
+//    }
+//    @PutMapping("/reset-password")
+//    public ResponseEntity<String> resetPassword(@Valid String password,@RequestHeader(name = "Authorization",required = false) String authorization){
+//        if (authorization==null || !authorization.startsWith("Bearer ")){
+//            throw new RuntimeException("Invalid token");
+//        }
+//        String refreshToken=authorization.substring(7);
+//        return ResponseEntity.ok(authService.resetPassword(password,refreshToken));
+//    }
 }
