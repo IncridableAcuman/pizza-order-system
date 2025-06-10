@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MainNavbar from '../components/MainNavbar'
 import { PlusCircle } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+  const navigate=useNavigate();
   const data=[
     {name:"Pizza Italiano",size:"Small",price:80,image:"./pizza.png"},
     {name:"Pizza Americano",size:"Medium",price:100,image:"./pizza.png"},
     {name:"Pizza Italiano",size:"Large",price:120,image:"./pizza.png"},
     {name:"Pizza Americano",size:"Large",price:150,image:"./pizza.png"}
   ]
+
+  useEffect(()=>{
+    if(!localStorage.getItem("accessToken")){
+      navigate("/auth");
+    }
+  },[navigate]);
+
   return (
     <>
     <MainNavbar/>

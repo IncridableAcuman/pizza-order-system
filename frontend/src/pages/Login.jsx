@@ -1,5 +1,5 @@
 import { Lock, Mail } from "lucide-react"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
 import { toast } from "react-toastify";
@@ -27,6 +27,11 @@ const Login = () => {
       localStorage.removeItem("accessToken");
     }
   }
+  useEffect(()=>{
+    if(localStorage.getItem("accessToken")){
+      navigate("/");
+    }
+  },[navigate]);
   return (
     <>
      <div className="w-full min-h-screen flex items-center justify-center bg-gray-100">

@@ -2,17 +2,22 @@ import { Lock } from 'lucide-react'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 import axiosInstance from '../api/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
 const ResetPassword = () => {
   const [password,setPassword]=useState('');
   const [confirmPassword,setConfirmPassword]=useState('');
+  const navigate=useNavigate();
     const handleSubmit=async (e)=>{
     e.preventDefault();
+    if(password!==confirmPassword){
+      toast.error("Password must be equal");
+    }
     try {
-      const {data}=await axiosInstance.put("/auth/reset-password",{password,confirmPassword});
-      if(data){
-        toast.success(data?.message || "Password reseted successfully!");
-      }
+      await axiosInstance.put("/auth/reset-password",{password,confirmPassword});
+        toast.success("Password reseted successfully!");
+        navigate("/login");
+
     } catch (error) {
       console.log(error);
       toast.error(error?.message || error?.response?.message || "Something wen wrong!");
