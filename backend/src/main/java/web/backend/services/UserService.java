@@ -41,7 +41,7 @@ public class UserService {
     @Transactional
     public void updatePassword(User user,String password){
         user.setPassword(passwordEncoder.encode(password));
-         userRepository.save(user);
+          userRepository.save(user);
     }
     public void isEqualsPassword(String password,String userPassword){
         if(!passwordEncoder.matches(password,userPassword)){

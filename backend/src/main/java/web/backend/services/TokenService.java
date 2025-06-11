@@ -89,7 +89,7 @@ public class TokenService {
         tokenRepository.findByRefreshToken(refreshToken).ifPresent(tokenRepository::delete);
     }
 
-    public Token findByRefreshT(String refreshToken){
+    public Token findByRefreshToken(String refreshToken){
         return tokenRepository.findByRefreshToken(refreshToken).orElseThrow(()->new RuntimeException("User not found by token"));
     }
 

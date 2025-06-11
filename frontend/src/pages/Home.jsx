@@ -25,7 +25,7 @@ const Home = () => {
       <div className="flex flex-col md:flex-row items-center justify-between paddinging">
         <div className="">
           <h2 className='text-3xl lg:text-8xl font-extrabold
-         bg-clip-text tracking-tight text-transparent bg-gradient-to-br from-green-600 to-green-900 text-shadow-md'>Are you hungry?</h2>
+         bg-clip-text pb-4 tracking-tight text-transparent bg-gradient-to-br from-green-600 to-green-900 text-shadow-md'>Are you hungry?</h2>
           <h2 className='text-3xl lg:text-8xl font-extrabold
          bg-clip-text tracking-tight text-transparent bg-gradient-to-br from-green-600 to-green-900 text-shadow-md'>Don't wait!</h2>
          <button className='mt-5 bg-green-600 px-5 py-2 text-white rounded-full

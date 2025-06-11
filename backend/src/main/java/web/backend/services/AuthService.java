@@ -107,8 +107,11 @@
             if (!userPayload){
                 throw new RuntimeException("Invalid token");
             }
-            Token token=tokenService.findByRefreshT(request.getToken());
-            User user=token.getUser();
+            String email=tokenService.extractEmail(request.getToken());
+            if (email==null || email.isEmpty()){
+                throw new RuntimeException("User not found");
+            }
+            User user=userService.findUserByEmail(email);
             userService.updatePassword(user,request.getPassword());
             return "Password updated successfully";
         }
